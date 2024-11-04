@@ -1,0 +1,2 @@
+MaxUsers=102
+Timeout=00:32:00

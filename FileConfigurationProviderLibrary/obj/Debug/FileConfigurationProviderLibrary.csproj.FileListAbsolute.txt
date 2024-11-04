@@ -1,0 +1,6 @@
+C:\BUCKET\DOT_NET\Learn_5\FileConfigurationProviderLibrary\bin\Debug\FileConfigurationProviderLibrary.dll
+C:\BUCKET\DOT_NET\Learn_5\FileConfigurationProviderLibrary\bin\Debug\FileConfigurationProviderLibrary.pdb
+C:\BUCKET\DOT_NET\Learn_5\FileConfigurationProviderLibrary\obj\Debug\FileConfigurationProviderLibrary.csproj.AssemblyReference.cache
+C:\BUCKET\DOT_NET\Learn_5\FileConfigurationProviderLibrary\obj\Debug\FileConfigurationProviderLibrary.csproj.CoreCompileInputs.cache
+C:\BUCKET\DOT_NET\Learn_5\FileConfigurationProviderLibrary\obj\Debug\FileConfigurationProviderLibrary.dll
+C:\BUCKET\DOT_NET\Learn_5\FileConfigurationProviderLibrary\obj\Debug\FileConfigurationProviderLibrary.pdb
