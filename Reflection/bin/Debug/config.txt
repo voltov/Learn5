@@ -1,2 +1,2 @@
-MaxUsers=102
-Timeout=00:32:00
+MaxUsers=101
+Timeout=00:31:00

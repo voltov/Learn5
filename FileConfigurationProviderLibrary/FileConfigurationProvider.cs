@@ -1,14 +1,13 @@
 ﻿using System.IO;
 
-namespace FileConfigurationProviderLibrary
+namespace FileConfigurationProviderLibrary 
 {
     public class FileConfigurationProvider
     {
-        private readonly string _filePath;
+        private const string _filePath = "config.txt";
 
-        public FileConfigurationProvider(string filePath)
+        public FileConfigurationProvider()
         {
-            _filePath = filePath;
         }
 
         public string GetValue(string key)

@@ -6,12 +6,12 @@ namespace Reflection
     public class ConfigurationItemAttribute : Attribute
     {
         public string SettingName { get; }
-        public Type ProviderType { get; }
+        public Type ValueType { get; }
 
-        public ConfigurationItemAttribute(string settingName, Type providerType)
+        public ConfigurationItemAttribute(string settingName, Type valueType)
         {
             SettingName = settingName;
-            ProviderType = providerType;
+            ValueType = valueType;
         }
     }
 }

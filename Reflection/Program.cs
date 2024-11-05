@@ -13,9 +13,9 @@ namespace Reflection
             Console.WriteLine($"MaxUsers: {settings.MaxUsers}");
             Console.WriteLine($"Timeout: {settings.Timeout}");
 
-            settings.AppTitle = "New App Title 2";
-            settings.MaxUsers = 102;
-            settings.Timeout = TimeSpan.FromMinutes(32);
+            settings.AppTitle = "New App Title 1";
+            settings.MaxUsers = 101;
+            settings.Timeout = TimeSpan.FromMinutes(31);
 
             settings.SaveSettings();
 

@@ -1,5 +1,5 @@
-using ConfigurationManagerConfigurationProviderLibrary;
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -9,6 +9,9 @@ namespace Reflection
     {
         public void LoadSettings()
         {
+            var ConfigurationManagerConfigurationProviderLibrary = Assembly.LoadFrom($"{Directory.GetCurrentDirectory()}\\ConfigurationManagerConfigurationProviderLibrary.dll");
+            var FileConfigurationProviderLibrary = Assembly.LoadFrom($"{Directory.GetCurrentDirectory()}\\FileConfigurationProviderLibrary.dll");
+
             var objType = GetType();
             var properties = objType.GetProperties()
                 .Where(prop => Attribute.IsDefined(prop, typeof(ConfigurationItemAttribute)));
@@ -16,20 +19,25 @@ namespace Reflection
             foreach (var property in properties)
             {
                 var attribute = (ConfigurationItemAttribute)property.GetCustomAttribute(typeof(ConfigurationItemAttribute));
-                object provider;
-                if (attribute.ProviderType == typeof(ConfigurationManagerConfigurationProvider))
+                object instance;
+                dynamic method;
+                if (attribute.ValueType == typeof(string))
                 {
-                    provider = Activator.CreateInstance(attribute.ProviderType);
+                    var vova = ConfigurationManagerConfigurationProviderLibrary.GetTypes();
+                    var type = ConfigurationManagerConfigurationProviderLibrary.GetType("ConfigurationManagerConfigurationProviderLibrary.ConfigurationManagerConfigurationProvider");
+                    instance = Activator.CreateInstance(type);
+                    method = type.GetMethod("GetValue");
+                } else
+                {
+                    var type = FileConfigurationProviderLibrary.GetType("FileConfigurationProviderLibrary.FileConfigurationProvider");
+                    instance = Activator.CreateInstance(type);
+                    method = type.GetMethod("GetValue");
                 }
-                else
-                {
-                    provider = Activator.CreateInstance(attribute.ProviderType, "config.txt");
-                }
-                var getValueMethod = provider.GetType().GetMethod("GetValue");
-                if (getValueMethod != null)
-                {
-                    var value = getValueMethod.Invoke(provider, new object[] { attribute.SettingName }) as string;
+                
 
+                if (method != null)
+                {
+                    var value = method.Invoke(instance, new object[] { attribute.SettingName }) as string;
                     if (value != null)
                     {
                         if (property.PropertyType == typeof(int))
@@ -55,27 +63,34 @@ namespace Reflection
 
         public void SaveSettings()
         {
+            var ConfigurationManagerConfigurationProviderLibrary = Assembly.LoadFrom("ConfigurationManagerConfigurationProviderLibrary.dll");
+            var FileConfigurationProviderLibrary = Assembly.LoadFrom("FileConfigurationProviderLibrary.dll");
+
             var properties = GetType().GetProperties()
                 .Where(prop => Attribute.IsDefined(prop, typeof(ConfigurationItemAttribute)));
 
             foreach (var property in properties)
             {
                 var attribute = (ConfigurationItemAttribute)property.GetCustomAttribute(typeof(ConfigurationItemAttribute));
-                object provider;
-                if (attribute.ProviderType == typeof(ConfigurationManagerConfigurationProvider))
+                object instance;
+                dynamic method;
+                if (attribute.ValueType == typeof(string))
                 {
-                    provider = Activator.CreateInstance(attribute.ProviderType);
+                    var type = ConfigurationManagerConfigurationProviderLibrary.GetType("ConfigurationManagerConfigurationProviderLibrary.ConfigurationManagerConfigurationProvider");
+                    instance = Activator.CreateInstance(type);
+                    method = type.GetMethod("SetValue");
                 }
                 else
                 {
-                    provider = Activator.CreateInstance(attribute.ProviderType, "config.txt");
+                    var type = FileConfigurationProviderLibrary.GetType("FileConfigurationProviderLibrary.FileConfigurationProvider");
+                    instance = Activator.CreateInstance(type);
+                    method = type.GetMethod("SetValue");
                 }
 
-                var setValueMethod = provider.GetType().GetMethod("SetValue");
-                if (setValueMethod != null)
+                if (method != null)
                 {
                     var value = property.GetValue(this)?.ToString();
-                    setValueMethod.Invoke(provider, new object[] { attribute.SettingName, value });
+                    method.Invoke(instance, new object[] { attribute.SettingName, value });
                 }
             }
         }

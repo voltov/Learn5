@@ -53,15 +53,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ConfigurationManagerConfigurationProviderLibrary\ConfigurationManagerConfigurationProviderLibrary.csproj">
-      <Project>{3FF6E948-3C78-4DF1-B40C-A7E2483A64AE}</Project>
-      <Name>ConfigurationManagerConfigurationProviderLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FileConfigurationProviderLibrary\FileConfigurationProviderLibrary.csproj">
-      <Project>{1856E1A9-6DF9-4A68-84B6-C53D807F4E6A}</Project>
-      <Name>FileConfigurationProviderLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
